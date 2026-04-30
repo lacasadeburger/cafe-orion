@@ -2,6 +2,7 @@ import React from 'react';
 // IMPORTACIÓN DE IMÁGENES
 import cafeKiloImg from '../assets/cafe-kilo.webp';
 import cafe250gImg from '../assets/cafe-250g.webp';
+import cafeOrion2026 from '../assets/orion2026.jpeg';
 
 const MenuModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -29,6 +30,12 @@ const MenuModal = ({ isOpen, onClose }) => {
           price: "38.00€",
           desc: "Formato ahorro para los amantes del café. 100% Arábica de altura.",
           image: cafeKiloImg
+        },
+        {
+          name: "Café Premium Orion - 1kg",
+          price: "45.00€",
+          desc: "Nuestra selección más exclusiva. Tueste artesanal, cosecha limitada 2026.",
+          image: cafeOrion2026
         }
       ]
     },
@@ -75,7 +82,7 @@ const MenuModal = ({ isOpen, onClose }) => {
                 {cat.title}
               </h3>
 
-              <div className={cat.isProducts ? "grid grid-cols-1 sm:grid-cols-2 gap-10" : "space-y-8"}>
+              <div className={cat.isProducts ? "grid grid-cols-1 sm:grid-cols-3 gap-10" : "space-y-8"}>
                 {cat.items.map((item, i) => (
                   <div key={i} className={`group flex flex-col ${cat.isProducts ? "bg-white/5 p-6 rounded-3xl border border-white/10 hover:border-[#BF953F]/50 transition-all h-full" : "justify-between"}`}>
 
