@@ -17,7 +17,30 @@ function App() {
   useEffect(() => {
     document.title = "Café Orion | Premium Experience";
     const t = setTimeout(() => setHeroVisible(true), 100);
-    return () => clearTimeout(t);
+
+    // Curseur personnalisé
+    const cursor = document.getElementById('custom-cursor');
+    if (!cursor) return () => clearTimeout(t);
+
+    const onMove = (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    };
+    const onOver = (e) => {
+      if (e.target.closest('a, button, [role="button"]')) {
+        cursor.classList.add('big');
+      } else {
+        cursor.classList.remove('big');
+      }
+    };
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseover', onOver);
+
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseover', onOver);
+    };
   }, []);
 
   useEffect(() => {
@@ -213,20 +236,6 @@ function App() {
 
       {/* Curseur personnalisé */}
       <div id="custom-cursor"></div>
-      <script dangerouslySetInnerHTML={{ __html: `
-        (function(){
-          var c = document.getElementById('custom-cursor');
-          if(!c) return;
-          document.addEventListener('mousemove', function(e){
-            c.style.left = e.clientX + 'px';
-            c.style.top  = e.clientY + 'px';
-          });
-          document.addEventListener('mouseover', function(e){
-            if(e.target.matches('a,button,[role=button]')) c.classList.add('big');
-            else c.classList.remove('big');
-          });
-        })();
-      `}} />
 
       <Navbar onOpenMenu={() => setIsMenuOpen(true)} />
       <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
